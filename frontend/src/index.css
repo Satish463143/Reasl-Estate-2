@@ -1,7 +1,18 @@
+@import 'flowbite';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* body{
-    background: #000;
-} */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --pri_color:#0056B3;
+    --sec_color:#FFA500;
+    --black:#000;
+    --white:#fff;
+    
+}

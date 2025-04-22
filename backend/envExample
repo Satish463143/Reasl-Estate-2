@@ -1,0 +1,6 @@
+PORT=
+
+dbURL=
+dbName=
+
+JWT_SECRET=
