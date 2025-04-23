@@ -5,16 +5,26 @@ require('./db.config')
 const router = require('./router.config')
 const MulterError = require('multer')
 
+// Debug middleware to log all incoming requests
+app.use((req, res, next) => {
+    console.log("📥 REQUEST:", req.method, req.url);
+    console.log("🔍 HEADERS:", JSON.stringify(req.headers));
+    console.log("📦 BODY (BEFORE PARSING):", req.body); // This will likely be undefined or empty
+    next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-// Router mounting point
-app.use(router);
+// Debug middleware to log parsed body
 app.use((req, res, next) => {
-    console.log("🛠 Middleware - Received Raw Request Body:", req.body);
+    console.log("📦 BODY (AFTER PARSING):", JSON.stringify(req.body));
     next();
 });
+
+// Router mounting point
+app.use(router);
 
 app.use((req, res, next) => {
     next({ status: 404, message: "Resource not found." });

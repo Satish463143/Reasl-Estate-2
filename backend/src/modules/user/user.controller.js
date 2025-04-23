@@ -1,20 +1,35 @@
 const userService = require("./user.service");
 
 class UserController {
-    createUser =async(req, res,next)=> {
+    createUser = async(req, res, next) => {
         try {
-            const data = userService.transformUserCreate(req)
+            console.log("Request received in controller:", req.body);
+            const data = userService.transformUserCreate(req);
 
-            await userService.registerUser(data);
+            const result = await userService.registerUser(data);
             res.json({
-                message:"User created successfully",
-                result:data,
-                meta:null
-            })
+                message: "User created successfully",
+                result: {
+                    userName: result.userName,
+                    email: result.email,
+                    phone: result.phone,
+                    _id: result._id
+                },
+                meta: null
+            });
         } catch (exception) {
-            console.log(exception)
-            next(exception);
+            console.log("Error in createUser controller:", exception);
             
+            // Check if it's a MongoDB duplicate key error (code 11000)
+            if (exception.name === 'MongoServerError' && exception.code === 11000) {
+                return next({
+                    status: 400,
+                    message: 'Email already exists',
+                    details: { email: 'This email is already registered' }
+                });
+            }
+            
+            next(exception);
         }
     }
     index = (req,res,next)=>{

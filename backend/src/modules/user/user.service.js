@@ -5,6 +5,7 @@ class UserService{
     transformUserCreate =(req,res)=>{
         try{
             const data = req.body;
+            console.log("Data received in transformUserCreate:", JSON.stringify(data));
             data.password = bcrypt.hashSync(data.password,10);
             return data;
 
@@ -13,12 +14,13 @@ class UserService{
         }
        
     }
-    registerUser = async(req,res)=>{
+    registerUser = async(data)=>{
         try{
-            const data = this.transformUserCreate(req,res);
+            console.log("Data being sent to model:", JSON.stringify(data));
             const user = await UserModel.create(data);
             return user;
         }catch(exception){
+            console.error("Error creating user:", exception);
             throw exception;
         }
     }
