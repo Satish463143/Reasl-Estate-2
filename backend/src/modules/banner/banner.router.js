@@ -7,12 +7,12 @@ const router = require("express").Router();
 
 router.route('/')
     .get(loginCheck,hasPermission('admin'),bodyValidator(), bannerController.getBanners)
-    .post(bannerController.createBanner)
+    .post(loginCheck,hasPermission('admin'),bodyValidator(),bannerController.createBanner)
 
 router.route('/:id')
-    .get(bannerController.getBannerById)
-    .put(bannerController.updateBanner)
-    .delete(bannerController.deleteBanner)
+    .get(loginCheck,hasPermission('admin'), bannerController.getBannerById)
+    .put(loginCheck,hasPermission('admin'),bannerController.updateBanner)
+    .delete(loginCheck,hasPermission('admin'),bannerController.deleteBanner)
 
 
 module.exports = router;
