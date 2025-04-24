@@ -7,14 +7,12 @@ const MulterError = require('multer')
 
 // Debug middleware to log all incoming requests
 app.use((req, res, next) => {
-    console.log("📥 REQUEST:", req.method, req.url);
-    console.log("🔍 HEADERS:", JSON.stringify(req.headers));
-    console.log("📦 BODY (BEFORE PARSING):", req.body); // This will likely be undefined or empty
+     // This will likely be undefined or empty
     next();
 });
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 // Debug middleware to log parsed body

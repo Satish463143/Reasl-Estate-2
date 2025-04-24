@@ -28,7 +28,7 @@ class AuthController {
                     result:{
                         userDetails:{
                             _id:user._id,
-                            name:user.name,
+                            name:user.userName,
                             email:user.email,
                             role:user.role
                         },
