@@ -11,7 +11,12 @@ const FileFilterType = {
     IMAGE_VIDEO: ['image', 'video'],
 
 }
+const Status = {
+    ACTIVE : 'Active',
+    INACTIVE : 'Inactive'
+}
 module.exports = {
     Role,
-    FileFilterType
+    FileFilterType,
+    Status
 }
